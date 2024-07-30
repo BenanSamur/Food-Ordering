@@ -1,0 +1,141 @@
+﻿@model YemekUygulaması.Models.Firma
+
+@{
+    ViewBag.Title = "İletişim";
+    Layout = null;
+}
+
+<div class="container">
+    
+    @if (ViewBag.Message != null)
+    {
+        <div class="alert alert-success">
+            @ViewBag.Message
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Bizimle İletişime Geçin</h3>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm("İletişim", "Default", FormMethod.Post, new { @class = "contact-form" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Ad, htmlAttributes: new { @class = "form-label" })
+                            @Html.TextBoxFor(m => m.Ad, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Ad, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Eposta, htmlAttributes: new { @class = "form-label" })
+                            @Html.TextBoxFor(m => m.Eposta, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Eposta, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Mesaj, htmlAttributes: new { @class = "form-label" })
+                            @Html.TextAreaFor(m => m.Mesaj, new { @class = "form-control", rows = 5 })
+                            @Html.ValidationMessageFor(m => m.Mesaj, "", new { @class = "text-danger" })
+                        </div>
+                        <button type="submit" class="btn btn-primary">Gönder</button>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3>İletişim Bilgilerimiz</h3>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        <li><strong>Ad:</strong> YumHUB AŞ</li>
+                        <li><strong>Telefon:</strong> (0532) 456-7890</li>
+                        <li><strong>E-posta:</strong> info@yumhub.com</li>
+                        <li><strong>Adres:</strong>İTÜ Ayazağa Kampüsü, 34467 Maslak-İSTANBUL</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .form-label {
+        font-weight: bold;
+    }
+
+    .contact-form {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 8px;
+    }
+
+    .btn-primary {
+        background-color: #E94560;
+        border-color: #E94560;
+    }
+
+        .btn-primary:hover {
+            background-color: #d93c5b;
+            border-color: #d93c5b;
+        }
+
+    .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+        border-color: #c3e6cb;
+    }
+
+    .card {
+        margin-bottom: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+        background-color: #E94560;
+        color: white;
+        padding: 15px;
+        border-bottom: 1px solid #ddd;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .list-unstyled li {
+        margin-bottom: 10px;
+    }
+
+    footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: palevioletred;
+        color: white;
+        text-align: center;
+        font-size: 20px;
+        padding: 20px 0;
+    }
+
+        footer .footer-text {
+            margin: 0;
+        }
+
+        footer .logo-link {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+</style>

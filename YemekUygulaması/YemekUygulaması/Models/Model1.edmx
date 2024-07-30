@@ -1,0 +1,1183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="yemekdbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="AdminID" />
+          </Key>
+          <Property Name="AdminID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="İsim" Type="nvarchar" MaxLength="100" />
+          <Property Name="E_posta" Type="nvarchar" MaxLength="100" />
+          <Property Name="Şifre" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="AltKategori">
+          <Key>
+            <PropertyRef Name="AltKategoriID" />
+          </Key>
+          <Property Name="AltKategoriID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KategoriID" Type="int" />
+          <Property Name="AltKategoriAdı" Type="varchar" MaxLength="50" />
+          <Property Name="Açıklama" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Balık">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Adı" Type="nvarchar" MaxLength="100" />
+          <Property Name="Açıklama" Type="nvarchar" MaxLength="255" />
+          <Property Name="Fiyat" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="KategoriID" Type="int" />
+          <Property Name="ResimURL" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Firma">
+          <Key>
+            <PropertyRef Name="FirmaID" />
+          </Key>
+          <Property Name="FirmaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ad" Type="varchar" MaxLength="100" />
+          <Property Name="Eposta" Type="varchar" MaxLength="100" />
+          <Property Name="Şifre" Type="varchar" MaxLength="50" />
+          <Property Name="Mesaj" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Hamburger">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Adı" Type="nvarchar" MaxLength="100" />
+          <Property Name="Açıklama" Type="nvarchar" MaxLength="255" />
+          <Property Name="Fiyat" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="KategoriID" Type="int" />
+          <Property Name="ResimURL" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="İçecekler">
+          <Key>
+            <PropertyRef Name="İçecekID" />
+          </Key>
+          <Property Name="İçecekID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="İçecekAdı" Type="varchar" MaxLength="100" />
+          <Property Name="Açıklama" Type="varchar" MaxLength="250" />
+          <Property Name="Fiyat" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="AltKategoriID" Type="int" />
+          <Property Name="ResimURL" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'yemekdb.dbo.İletişim' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="İletişim">
+          <Property Name="Ad" Type="varchar" MaxLength="50" />
+          <Property Name="EMail" Type="varchar" MaxLength="100" />
+          <Property Name="Mesaj" Type="varchar" MaxLength="200" />
+        </EntityType>-->
+        <EntityType Name="Kategoriler">
+          <Key>
+            <PropertyRef Name="KategoriID" />
+          </Key>
+          <Property Name="KategoriID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KategoriAdı" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Kullanıcı">
+          <Key>
+            <PropertyRef Name="KullanıcıID" />
+          </Key>
+          <Property Name="KullanıcıID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KullanıcıAdı" Type="varchar" MaxLength="100" />
+          <Property Name="Şifre" Type="varchar" MaxLength="50" />
+          <Property Name="EMail" Type="varchar" MaxLength="200" />
+          <Property Name="Adres" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Pizza">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Adı" Type="nvarchar" MaxLength="100" />
+          <Property Name="Açıklama" Type="nvarchar" MaxLength="255" />
+          <Property Name="Fiyat" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="KategoriID" Type="int" />
+          <Property Name="ResimURL" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Rating">
+          <Key>
+            <PropertyRef Name="RatingID" />
+          </Key>
+          <Property Name="RatingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SiparişID" Type="int" />
+          <Property Name="KullanıcıID" Type="int" />
+          <Property Name="Rate" Type="int" />
+          <Property Name="RatingTarihi" Type="datetime" />
+        </EntityType>
+        <EntityType Name="SiparişDetayları">
+          <Key>
+            <PropertyRef Name="SiparişDetayID" />
+          </Key>
+          <Property Name="SiparişDetayID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SiparişID" Type="int" />
+          <Property Name="YemekID" Type="int" />
+          <Property Name="Miktar" Type="int" />
+          <Property Name="Fiyat" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="Siparişler">
+          <Key>
+            <PropertyRef Name="SiparişID" />
+          </Key>
+          <Property Name="SiparişID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HamburgerId" Type="int" />
+          <Property Name="PizzaId" Type="int" />
+          <Property Name="BalıkId" Type="int" />
+          <Property Name="SushiId" Type="int" />
+          <Property Name="İçeceklerId" Type="int" />
+          <Property Name="TatlıId" Type="int" />
+          <Property Name="Miktar" Type="int" />
+          <Property Name="Adı" Type="nvarchar" MaxLength="255" />
+          <Property Name="Fiyat" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ResimURL" Type="nvarchar" MaxLength="255" />
+          <Property Name="Açıklama" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="SiparişYorumları">
+          <Key>
+            <PropertyRef Name="YorumID" />
+          </Key>
+          <Property Name="YorumID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SiparişID" Type="int" />
+          <Property Name="KullanıcıID" Type="int" />
+          <Property Name="Açıklama" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="YorumTarihi" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Sushi">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Adı" Type="nvarchar" MaxLength="100" />
+          <Property Name="Açıklama" Type="nvarchar" MaxLength="255" />
+          <Property Name="Fiyat" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="KategoriID" Type="int" />
+          <Property Name="ResimURL" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Tatlı">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Adı" Type="nvarchar" MaxLength="100" />
+          <Property Name="Açıklama" Type="nvarchar" MaxLength="255" />
+          <Property Name="Fiyat" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="KategoriID" Type="int" />
+          <Property Name="ResimURL" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Yemekler">
+          <Key>
+            <PropertyRef Name="YemekID" />
+          </Key>
+          <Property Name="YemekID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="YemekAdı" Type="nvarchar" MaxLength="100" />
+          <Property Name="Açıklama" Type="nvarchar" MaxLength="255" />
+          <Property Name="Fiyat" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="AltKategoriID" Type="int" />
+        </EntityType>
+        <Association Name="FK__AltKatego__Kateg__4D94879B">
+          <End Role="Kategoriler" Type="Self.Kategoriler" Multiplicity="0..1" />
+          <End Role="AltKategori" Type="Self.AltKategori" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategoriler">
+              <PropertyRef Name="KategoriID" />
+            </Principal>
+            <Dependent Role="AltKategori">
+              <PropertyRef Name="KategoriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Balık__KategoriI__02FC7413">
+          <End Role="Kategoriler" Type="Self.Kategoriler" Multiplicity="0..1" />
+          <End Role="Balık" Type="Self.Balık" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategoriler">
+              <PropertyRef Name="KategoriID" />
+            </Principal>
+            <Dependent Role="Balık">
+              <PropertyRef Name="KategoriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Hamburger__Kateg__7A672E12">
+          <End Role="Kategoriler" Type="Self.Kategoriler" Multiplicity="0..1" />
+          <End Role="Hamburger" Type="Self.Hamburger" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategoriler">
+              <PropertyRef Name="KategoriID" />
+            </Principal>
+            <Dependent Role="Hamburger">
+              <PropertyRef Name="KategoriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__İçecekler__AltKa__534D60F1">
+          <End Role="AltKategori" Type="Self.AltKategori" Multiplicity="0..1" />
+          <End Role="İçecekler" Type="Self.İçecekler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AltKategori">
+              <PropertyRef Name="AltKategoriID" />
+            </Principal>
+            <Dependent Role="İçecekler">
+              <PropertyRef Name="AltKategoriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pizza__KategoriI__7D439ABD">
+          <End Role="Kategoriler" Type="Self.Kategoriler" Multiplicity="0..1" />
+          <End Role="Pizza" Type="Self.Pizza" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategoriler">
+              <PropertyRef Name="KategoriID" />
+            </Principal>
+            <Dependent Role="Pizza">
+              <PropertyRef Name="KategoriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rating__Kullanıc__693CA210">
+          <End Role="Kullanıcı" Type="Self.Kullanıcı" Multiplicity="0..1" />
+          <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kullanıcı">
+              <PropertyRef Name="KullanıcıID" />
+            </Principal>
+            <Dependent Role="Rating">
+              <PropertyRef Name="KullanıcıID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SiparişDe__Yemek__5BE2A6F2">
+          <End Role="Yemekler" Type="Self.Yemekler" Multiplicity="0..1" />
+          <End Role="SiparişDetayları" Type="Self.SiparişDetayları" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Yemekler">
+              <PropertyRef Name="YemekID" />
+            </Principal>
+            <Dependent Role="SiparişDetayları">
+              <PropertyRef Name="YemekID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Siparişle__Balık__22751F6C">
+          <End Role="Balık" Type="Self.Balık" Multiplicity="0..1" />
+          <End Role="Siparişler" Type="Self.Siparişler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Balık">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Siparişler">
+              <PropertyRef Name="BalıkId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Siparişle__Hambu__208CD6FA">
+          <End Role="Hamburger" Type="Self.Hamburger" Multiplicity="0..1" />
+          <End Role="Siparişler" Type="Self.Siparişler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hamburger">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Siparişler">
+              <PropertyRef Name="HamburgerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Siparişle__İçece__245D67DE">
+          <End Role="Balık" Type="Self.Balık" Multiplicity="0..1" />
+          <End Role="Siparişler" Type="Self.Siparişler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Balık">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Siparişler">
+              <PropertyRef Name="İçeceklerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Siparişle__Pizza__2180FB33">
+          <End Role="Pizza" Type="Self.Pizza" Multiplicity="0..1" />
+          <End Role="Siparişler" Type="Self.Siparişler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pizza">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Siparişler">
+              <PropertyRef Name="PizzaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Siparişle__Sushi__236943A5">
+          <End Role="Balık" Type="Self.Balık" Multiplicity="0..1" />
+          <End Role="Siparişler" Type="Self.Siparişler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Balık">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Siparişler">
+              <PropertyRef Name="SushiId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Siparişle__Tatlı__25518C17">
+          <End Role="Balık" Type="Self.Balık" Multiplicity="0..1" />
+          <End Role="Siparişler" Type="Self.Siparişler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Balık">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Siparişler">
+              <PropertyRef Name="TatlıId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SiparişYo__Kulla__6383C8BA">
+          <End Role="Kullanıcı" Type="Self.Kullanıcı" Multiplicity="0..1" />
+          <End Role="SiparişYorumları" Type="Self.SiparişYorumları" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kullanıcı">
+              <PropertyRef Name="KullanıcıID" />
+            </Principal>
+            <Dependent Role="SiparişYorumları">
+              <PropertyRef Name="KullanıcıID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sushi__KategoriI__00200768">
+          <End Role="Kategoriler" Type="Self.Kategoriler" Multiplicity="0..1" />
+          <End Role="Sushi" Type="Self.Sushi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategoriler">
+              <PropertyRef Name="KategoriID" />
+            </Principal>
+            <Dependent Role="Sushi">
+              <PropertyRef Name="KategoriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tatlı__KategoriI__05D8E0BE">
+          <End Role="Kategoriler" Type="Self.Kategoriler" Multiplicity="0..1" />
+          <End Role="Tatlı" Type="Self.Tatlı" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategoriler">
+              <PropertyRef Name="KategoriID" />
+            </Principal>
+            <Dependent Role="Tatlı">
+              <PropertyRef Name="KategoriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Yemekler__AltKat__5070F446">
+          <End Role="AltKategori" Type="Self.AltKategori" Multiplicity="0..1" />
+          <End Role="Yemekler" Type="Self.Yemekler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AltKategori">
+              <PropertyRef Name="AltKategoriID" />
+            </Principal>
+            <Dependent Role="Yemekler">
+              <PropertyRef Name="AltKategoriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="yemekdbModelStoreContainer">
+          <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AltKategori" EntityType="Self.AltKategori" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Balık" EntityType="Self.Balık" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Firma" EntityType="Self.Firma" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Hamburger" EntityType="Self.Hamburger" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="İçecekler" EntityType="Self.İçecekler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kategoriler" EntityType="Self.Kategoriler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kullanıcı" EntityType="Self.Kullanıcı" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pizza" EntityType="Self.Pizza" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rating" EntityType="Self.Rating" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SiparişDetayları" EntityType="Self.SiparişDetayları" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Siparişler" EntityType="Self.Siparişler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SiparişYorumları" EntityType="Self.SiparişYorumları" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sushi" EntityType="Self.Sushi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tatlı" EntityType="Self.Tatlı" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Yemekler" EntityType="Self.Yemekler" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__AltKatego__Kateg__4D94879B" Association="Self.FK__AltKatego__Kateg__4D94879B">
+            <End Role="Kategoriler" EntitySet="Kategoriler" />
+            <End Role="AltKategori" EntitySet="AltKategori" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Balık__KategoriI__02FC7413" Association="Self.FK__Balık__KategoriI__02FC7413">
+            <End Role="Kategoriler" EntitySet="Kategoriler" />
+            <End Role="Balık" EntitySet="Balık" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Hamburger__Kateg__7A672E12" Association="Self.FK__Hamburger__Kateg__7A672E12">
+            <End Role="Kategoriler" EntitySet="Kategoriler" />
+            <End Role="Hamburger" EntitySet="Hamburger" />
+          </AssociationSet>
+          <AssociationSet Name="FK__İçecekler__AltKa__534D60F1" Association="Self.FK__İçecekler__AltKa__534D60F1">
+            <End Role="AltKategori" EntitySet="AltKategori" />
+            <End Role="İçecekler" EntitySet="İçecekler" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pizza__KategoriI__7D439ABD" Association="Self.FK__Pizza__KategoriI__7D439ABD">
+            <End Role="Kategoriler" EntitySet="Kategoriler" />
+            <End Role="Pizza" EntitySet="Pizza" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rating__Kullanıc__693CA210" Association="Self.FK__Rating__Kullanıc__693CA210">
+            <End Role="Kullanıcı" EntitySet="Kullanıcı" />
+            <End Role="Rating" EntitySet="Rating" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SiparişDe__Yemek__5BE2A6F2" Association="Self.FK__SiparişDe__Yemek__5BE2A6F2">
+            <End Role="Yemekler" EntitySet="Yemekler" />
+            <End Role="SiparişDetayları" EntitySet="SiparişDetayları" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Siparişle__Balık__22751F6C" Association="Self.FK__Siparişle__Balık__22751F6C">
+            <End Role="Balık" EntitySet="Balık" />
+            <End Role="Siparişler" EntitySet="Siparişler" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Siparişle__Hambu__208CD6FA" Association="Self.FK__Siparişle__Hambu__208CD6FA">
+            <End Role="Hamburger" EntitySet="Hamburger" />
+            <End Role="Siparişler" EntitySet="Siparişler" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Siparişle__İçece__245D67DE" Association="Self.FK__Siparişle__İçece__245D67DE">
+            <End Role="Balık" EntitySet="Balık" />
+            <End Role="Siparişler" EntitySet="Siparişler" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Siparişle__Pizza__2180FB33" Association="Self.FK__Siparişle__Pizza__2180FB33">
+            <End Role="Pizza" EntitySet="Pizza" />
+            <End Role="Siparişler" EntitySet="Siparişler" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Siparişle__Sushi__236943A5" Association="Self.FK__Siparişle__Sushi__236943A5">
+            <End Role="Balık" EntitySet="Balık" />
+            <End Role="Siparişler" EntitySet="Siparişler" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Siparişle__Tatlı__25518C17" Association="Self.FK__Siparişle__Tatlı__25518C17">
+            <End Role="Balık" EntitySet="Balık" />
+            <End Role="Siparişler" EntitySet="Siparişler" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SiparişYo__Kulla__6383C8BA" Association="Self.FK__SiparişYo__Kulla__6383C8BA">
+            <End Role="Kullanıcı" EntitySet="Kullanıcı" />
+            <End Role="SiparişYorumları" EntitySet="SiparişYorumları" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sushi__KategoriI__00200768" Association="Self.FK__Sushi__KategoriI__00200768">
+            <End Role="Kategoriler" EntitySet="Kategoriler" />
+            <End Role="Sushi" EntitySet="Sushi" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tatlı__KategoriI__05D8E0BE" Association="Self.FK__Tatlı__KategoriI__05D8E0BE">
+            <End Role="Kategoriler" EntitySet="Kategoriler" />
+            <End Role="Tatlı" EntitySet="Tatlı" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Yemekler__AltKat__5070F446" Association="Self.FK__Yemekler__AltKat__5070F446">
+            <End Role="AltKategori" EntitySet="AltKategori" />
+            <End Role="Yemekler" EntitySet="Yemekler" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="yemekdbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="AdminID" />
+          </Key>
+          <Property Name="AdminID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="İsim" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="E_posta" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Şifre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="AltKategori">
+          <Key>
+            <PropertyRef Name="AltKategoriID" />
+          </Key>
+          <Property Name="AltKategoriID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KategoriID" Type="Int32" />
+          <Property Name="AltKategoriAdı" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Açıklama" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Kategoriler" Relationship="Self.FK__AltKatego__Kateg__4D94879B" FromRole="AltKategori" ToRole="Kategoriler" />
+          <NavigationProperty Name="İçecekler" Relationship="Self.FK__İçecekler__AltKa__534D60F1" FromRole="AltKategori" ToRole="İçecekler" />
+          <NavigationProperty Name="Yemekler" Relationship="Self.FK__Yemekler__AltKat__5070F446" FromRole="AltKategori" ToRole="Yemekler" />
+        </EntityType>
+        <EntityType Name="Balık">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Adı" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Açıklama" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Fiyat" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="KategoriID" Type="Int32" />
+          <Property Name="ResimURL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Kategoriler" Relationship="Self.FK__Balık__KategoriI__02FC7413" FromRole="Balık" ToRole="Kategoriler" />
+          <NavigationProperty Name="Siparişler" Relationship="Self.FK__Siparişle__Balık__22751F6C" FromRole="Balık" ToRole="Siparişler" />
+          <NavigationProperty Name="Siparişler1" Relationship="Self.FK__Siparişle__İçece__245D67DE" FromRole="Balık" ToRole="Siparişler" />
+          <NavigationProperty Name="Siparişler2" Relationship="Self.FK__Siparişle__Sushi__236943A5" FromRole="Balık" ToRole="Siparişler" />
+          <NavigationProperty Name="Siparişler3" Relationship="Self.FK__Siparişle__Tatlı__25518C17" FromRole="Balık" ToRole="Siparişler" />
+        </EntityType>
+        <EntityType Name="Firma">
+          <Key>
+            <PropertyRef Name="FirmaID" />
+          </Key>
+          <Property Name="FirmaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ad" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Eposta" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Şifre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Mesaj" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Hamburger">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Adı" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Açıklama" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Fiyat" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="KategoriID" Type="Int32" />
+          <Property Name="ResimURL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Kategoriler" Relationship="Self.FK__Hamburger__Kateg__7A672E12" FromRole="Hamburger" ToRole="Kategoriler" />
+          <NavigationProperty Name="Siparişler" Relationship="Self.FK__Siparişle__Hambu__208CD6FA" FromRole="Hamburger" ToRole="Siparişler" />
+        </EntityType>
+        <EntityType Name="İçecekler">
+          <Key>
+            <PropertyRef Name="İçecekID" />
+          </Key>
+          <Property Name="İçecekID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="İçecekAdı" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Açıklama" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Fiyat" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="AltKategoriID" Type="Int32" />
+          <Property Name="ResimURL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AltKategori" Relationship="Self.FK__İçecekler__AltKa__534D60F1" FromRole="İçecekler" ToRole="AltKategori" />
+        </EntityType>
+        <EntityType Name="Kategoriler">
+          <Key>
+            <PropertyRef Name="KategoriID" />
+          </Key>
+          <Property Name="KategoriID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KategoriAdı" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AltKategori" Relationship="Self.FK__AltKatego__Kateg__4D94879B" FromRole="Kategoriler" ToRole="AltKategori" />
+          <NavigationProperty Name="Balık" Relationship="Self.FK__Balık__KategoriI__02FC7413" FromRole="Kategoriler" ToRole="Balık" />
+          <NavigationProperty Name="Hamburger" Relationship="Self.FK__Hamburger__Kateg__7A672E12" FromRole="Kategoriler" ToRole="Hamburger" />
+          <NavigationProperty Name="Pizza" Relationship="Self.FK__Pizza__KategoriI__7D439ABD" FromRole="Kategoriler" ToRole="Pizza" />
+          <NavigationProperty Name="Sushi" Relationship="Self.FK__Sushi__KategoriI__00200768" FromRole="Kategoriler" ToRole="Sushi" />
+          <NavigationProperty Name="Tatlı" Relationship="Self.FK__Tatlı__KategoriI__05D8E0BE" FromRole="Kategoriler" ToRole="Tatlı" />
+        </EntityType>
+        <EntityType Name="Kullanıcı">
+          <Key>
+            <PropertyRef Name="KullanıcıID" />
+          </Key>
+          <Property Name="KullanıcıID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KullanıcıAdı" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Şifre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EMail" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Adres" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Rating" Relationship="Self.FK__Rating__Kullanıc__693CA210" FromRole="Kullanıcı" ToRole="Rating" />
+          <NavigationProperty Name="SiparişYorumları" Relationship="Self.FK__SiparişYo__Kulla__6383C8BA" FromRole="Kullanıcı" ToRole="SiparişYorumları" />
+        </EntityType>
+        <EntityType Name="Pizza">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Adı" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Açıklama" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Fiyat" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="KategoriID" Type="Int32" />
+          <Property Name="ResimURL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Kategoriler" Relationship="Self.FK__Pizza__KategoriI__7D439ABD" FromRole="Pizza" ToRole="Kategoriler" />
+          <NavigationProperty Name="Siparişler" Relationship="Self.FK__Siparişle__Pizza__2180FB33" FromRole="Pizza" ToRole="Siparişler" />
+        </EntityType>
+        <EntityType Name="Rating">
+          <Key>
+            <PropertyRef Name="RatingID" />
+          </Key>
+          <Property Name="RatingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SiparişID" Type="Int32" />
+          <Property Name="KullanıcıID" Type="Int32" />
+          <Property Name="Rate" Type="Int32" />
+          <Property Name="RatingTarihi" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Kullanıcı" Relationship="Self.FK__Rating__Kullanıc__693CA210" FromRole="Rating" ToRole="Kullanıcı" />
+        </EntityType>
+        <EntityType Name="SiparişDetayları">
+          <Key>
+            <PropertyRef Name="SiparişDetayID" />
+          </Key>
+          <Property Name="SiparişDetayID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SiparişID" Type="Int32" />
+          <Property Name="YemekID" Type="Int32" />
+          <Property Name="Miktar" Type="Int32" />
+          <Property Name="Fiyat" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="Yemekler" Relationship="Self.FK__SiparişDe__Yemek__5BE2A6F2" FromRole="SiparişDetayları" ToRole="Yemekler" />
+        </EntityType>
+        <EntityType Name="Siparişler">
+          <Key>
+            <PropertyRef Name="SiparişID" />
+          </Key>
+          <Property Name="SiparişID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HamburgerId" Type="Int32" />
+          <Property Name="PizzaId" Type="Int32" />
+          <Property Name="BalıkId" Type="Int32" />
+          <Property Name="SushiId" Type="Int32" />
+          <Property Name="İçeceklerId" Type="Int32" />
+          <Property Name="TatlıId" Type="Int32" />
+          <Property Name="Miktar" Type="Int32" />
+          <Property Name="Adı" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Fiyat" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ResimURL" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Açıklama" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Balık" Relationship="Self.FK__Siparişle__Balık__22751F6C" FromRole="Siparişler" ToRole="Balık" />
+          <NavigationProperty Name="Balık1" Relationship="Self.FK__Siparişle__İçece__245D67DE" FromRole="Siparişler" ToRole="Balık" />
+          <NavigationProperty Name="Balık2" Relationship="Self.FK__Siparişle__Sushi__236943A5" FromRole="Siparişler" ToRole="Balık" />
+          <NavigationProperty Name="Balık3" Relationship="Self.FK__Siparişle__Tatlı__25518C17" FromRole="Siparişler" ToRole="Balık" />
+          <NavigationProperty Name="Hamburger" Relationship="Self.FK__Siparişle__Hambu__208CD6FA" FromRole="Siparişler" ToRole="Hamburger" />
+          <NavigationProperty Name="Pizza" Relationship="Self.FK__Siparişle__Pizza__2180FB33" FromRole="Siparişler" ToRole="Pizza" />
+        </EntityType>
+        <EntityType Name="SiparişYorumları">
+          <Key>
+            <PropertyRef Name="YorumID" />
+          </Key>
+          <Property Name="YorumID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SiparişID" Type="Int32" />
+          <Property Name="KullanıcıID" Type="Int32" />
+          <Property Name="Açıklama" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="YorumTarihi" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Kullanıcı" Relationship="Self.FK__SiparişYo__Kulla__6383C8BA" FromRole="SiparişYorumları" ToRole="Kullanıcı" />
+        </EntityType>
+        <EntityType Name="Sushi">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Adı" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Açıklama" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Fiyat" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="KategoriID" Type="Int32" />
+          <Property Name="ResimURL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Kategoriler" Relationship="Self.FK__Sushi__KategoriI__00200768" FromRole="Sushi" ToRole="Kategoriler" />
+        </EntityType>
+        <EntityType Name="Tatlı">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Adı" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Açıklama" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Fiyat" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="KategoriID" Type="Int32" />
+          <Property Name="ResimURL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Kategoriler" Relationship="Self.FK__Tatlı__KategoriI__05D8E0BE" FromRole="Tatlı" ToRole="Kategoriler" />
+        </EntityType>
+        <EntityType Name="Yemekler">
+          <Key>
+            <PropertyRef Name="YemekID" />
+          </Key>
+          <Property Name="YemekID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="YemekAdı" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Açıklama" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Fiyat" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="AltKategoriID" Type="Int32" />
+          <NavigationProperty Name="AltKategori" Relationship="Self.FK__Yemekler__AltKat__5070F446" FromRole="Yemekler" ToRole="AltKategori" />
+          <NavigationProperty Name="SiparişDetayları" Relationship="Self.FK__SiparişDe__Yemek__5BE2A6F2" FromRole="Yemekler" ToRole="SiparişDetayları" />
+        </EntityType>
+        <Association Name="FK__AltKatego__Kateg__4D94879B">
+          <End Role="Kategoriler" Type="Self.Kategoriler" Multiplicity="0..1" />
+          <End Role="AltKategori" Type="Self.AltKategori" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategoriler">
+              <PropertyRef Name="KategoriID" />
+            </Principal>
+            <Dependent Role="AltKategori">
+              <PropertyRef Name="KategoriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__İçecekler__AltKa__534D60F1">
+          <End Role="AltKategori" Type="Self.AltKategori" Multiplicity="0..1" />
+          <End Role="İçecekler" Type="Self.İçecekler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AltKategori">
+              <PropertyRef Name="AltKategoriID" />
+            </Principal>
+            <Dependent Role="İçecekler">
+              <PropertyRef Name="AltKategoriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Yemekler__AltKat__5070F446">
+          <End Role="AltKategori" Type="Self.AltKategori" Multiplicity="0..1" />
+          <End Role="Yemekler" Type="Self.Yemekler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AltKategori">
+              <PropertyRef Name="AltKategoriID" />
+            </Principal>
+            <Dependent Role="Yemekler">
+              <PropertyRef Name="AltKategoriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Balık__KategoriI__02FC7413">
+          <End Role="Kategoriler" Type="Self.Kategoriler" Multiplicity="0..1" />
+          <End Role="Balık" Type="Self.Balık" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategoriler">
+              <PropertyRef Name="KategoriID" />
+            </Principal>
+            <Dependent Role="Balık">
+              <PropertyRef Name="KategoriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Siparişle__Balık__22751F6C">
+          <End Role="Balık" Type="Self.Balık" Multiplicity="0..1" />
+          <End Role="Siparişler" Type="Self.Siparişler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Balık">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Siparişler">
+              <PropertyRef Name="BalıkId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Siparişle__İçece__245D67DE">
+          <End Role="Balık" Type="Self.Balık" Multiplicity="0..1" />
+          <End Role="Siparişler" Type="Self.Siparişler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Balık">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Siparişler">
+              <PropertyRef Name="İçeceklerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Siparişle__Sushi__236943A5">
+          <End Role="Balık" Type="Self.Balık" Multiplicity="0..1" />
+          <End Role="Siparişler" Type="Self.Siparişler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Balık">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Siparişler">
+              <PropertyRef Name="SushiId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Siparişle__Tatlı__25518C17">
+          <End Role="Balık" Type="Self.Balık" Multiplicity="0..1" />
+          <End Role="Siparişler" Type="Self.Siparişler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Balık">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Siparişler">
+              <PropertyRef Name="TatlıId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Hamburger__Kateg__7A672E12">
+          <End Role="Kategoriler" Type="Self.Kategoriler" Multiplicity="0..1" />
+          <End Role="Hamburger" Type="Self.Hamburger" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategoriler">
+              <PropertyRef Name="KategoriID" />
+            </Principal>
+            <Dependent Role="Hamburger">
+              <PropertyRef Name="KategoriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Siparişle__Hambu__208CD6FA">
+          <End Role="Hamburger" Type="Self.Hamburger" Multiplicity="0..1" />
+          <End Role="Siparişler" Type="Self.Siparişler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hamburger">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Siparişler">
+              <PropertyRef Name="HamburgerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pizza__KategoriI__7D439ABD">
+          <End Role="Kategoriler" Type="Self.Kategoriler" Multiplicity="0..1" />
+          <End Role="Pizza" Type="Self.Pizza" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategoriler">
+              <PropertyRef Name="KategoriID" />
+            </Principal>
+            <Dependent Role="Pizza">
+              <PropertyRef Name="KategoriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sushi__KategoriI__00200768">
+          <End Role="Kategoriler" Type="Self.Kategoriler" Multiplicity="0..1" />
+          <End Role="Sushi" Type="Self.Sushi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategoriler">
+              <PropertyRef Name="KategoriID" />
+            </Principal>
+            <Dependent Role="Sushi">
+              <PropertyRef Name="KategoriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tatlı__KategoriI__05D8E0BE">
+          <End Role="Kategoriler" Type="Self.Kategoriler" Multiplicity="0..1" />
+          <End Role="Tatlı" Type="Self.Tatlı" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategoriler">
+              <PropertyRef Name="KategoriID" />
+            </Principal>
+            <Dependent Role="Tatlı">
+              <PropertyRef Name="KategoriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rating__Kullanıc__693CA210">
+          <End Role="Kullanıcı" Type="Self.Kullanıcı" Multiplicity="0..1" />
+          <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kullanıcı">
+              <PropertyRef Name="KullanıcıID" />
+            </Principal>
+            <Dependent Role="Rating">
+              <PropertyRef Name="KullanıcıID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SiparişYo__Kulla__6383C8BA">
+          <End Role="Kullanıcı" Type="Self.Kullanıcı" Multiplicity="0..1" />
+          <End Role="SiparişYorumları" Type="Self.SiparişYorumları" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kullanıcı">
+              <PropertyRef Name="KullanıcıID" />
+            </Principal>
+            <Dependent Role="SiparişYorumları">
+              <PropertyRef Name="KullanıcıID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Siparişle__Pizza__2180FB33">
+          <End Role="Pizza" Type="Self.Pizza" Multiplicity="0..1" />
+          <End Role="Siparişler" Type="Self.Siparişler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pizza">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Siparişler">
+              <PropertyRef Name="PizzaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SiparişDe__Yemek__5BE2A6F2">
+          <End Role="Yemekler" Type="Self.Yemekler" Multiplicity="0..1" />
+          <End Role="SiparişDetayları" Type="Self.SiparişDetayları" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Yemekler">
+              <PropertyRef Name="YemekID" />
+            </Principal>
+            <Dependent Role="SiparişDetayları">
+              <PropertyRef Name="YemekID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="yemekdbEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Admin" EntityType="Self.Admin" />
+          <EntitySet Name="AltKategori" EntityType="Self.AltKategori" />
+          <EntitySet Name="Balık" EntityType="Self.Balık" />
+          <EntitySet Name="Firma" EntityType="Self.Firma" />
+          <EntitySet Name="Hamburger" EntityType="Self.Hamburger" />
+          <EntitySet Name="İçecekler" EntityType="Self.İçecekler" />
+          <EntitySet Name="Kategoriler" EntityType="Self.Kategoriler" />
+          <EntitySet Name="Kullanıcı" EntityType="Self.Kullanıcı" />
+          <EntitySet Name="Pizza" EntityType="Self.Pizza" />
+          <EntitySet Name="Rating" EntityType="Self.Rating" />
+          <EntitySet Name="SiparişDetayları" EntityType="Self.SiparişDetayları" />
+          <EntitySet Name="Siparişler" EntityType="Self.Siparişler" />
+          <EntitySet Name="SiparişYorumları" EntityType="Self.SiparişYorumları" />
+          <EntitySet Name="Sushi" EntityType="Self.Sushi" />
+          <EntitySet Name="Tatlı" EntityType="Self.Tatlı" />
+          <EntitySet Name="Yemekler" EntityType="Self.Yemekler" />
+          <AssociationSet Name="FK__AltKatego__Kateg__4D94879B" Association="Self.FK__AltKatego__Kateg__4D94879B">
+            <End Role="Kategoriler" EntitySet="Kategoriler" />
+            <End Role="AltKategori" EntitySet="AltKategori" />
+          </AssociationSet>
+          <AssociationSet Name="FK__İçecekler__AltKa__534D60F1" Association="Self.FK__İçecekler__AltKa__534D60F1">
+            <End Role="AltKategori" EntitySet="AltKategori" />
+            <End Role="İçecekler" EntitySet="İçecekler" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Yemekler__AltKat__5070F446" Association="Self.FK__Yemekler__AltKat__5070F446">
+            <End Role="AltKategori" EntitySet="AltKategori" />
+            <End Role="Yemekler" EntitySet="Yemekler" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Balık__KategoriI__02FC7413" Association="Self.FK__Balık__KategoriI__02FC7413">
+            <End Role="Kategoriler" EntitySet="Kategoriler" />
+            <End Role="Balık" EntitySet="Balık" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Siparişle__Balık__22751F6C" Association="Self.FK__Siparişle__Balık__22751F6C">
+            <End Role="Balık" EntitySet="Balık" />
+            <End Role="Siparişler" EntitySet="Siparişler" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Siparişle__İçece__245D67DE" Association="Self.FK__Siparişle__İçece__245D67DE">
+            <End Role="Balık" EntitySet="Balık" />
+            <End Role="Siparişler" EntitySet="Siparişler" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Siparişle__Sushi__236943A5" Association="Self.FK__Siparişle__Sushi__236943A5">
+            <End Role="Balık" EntitySet="Balık" />
+            <End Role="Siparişler" EntitySet="Siparişler" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Siparişle__Tatlı__25518C17" Association="Self.FK__Siparişle__Tatlı__25518C17">
+            <End Role="Balık" EntitySet="Balık" />
+            <End Role="Siparişler" EntitySet="Siparişler" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Hamburger__Kateg__7A672E12" Association="Self.FK__Hamburger__Kateg__7A672E12">
+            <End Role="Kategoriler" EntitySet="Kategoriler" />
+            <End Role="Hamburger" EntitySet="Hamburger" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Siparişle__Hambu__208CD6FA" Association="Self.FK__Siparişle__Hambu__208CD6FA">
+            <End Role="Hamburger" EntitySet="Hamburger" />
+            <End Role="Siparişler" EntitySet="Siparişler" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pizza__KategoriI__7D439ABD" Association="Self.FK__Pizza__KategoriI__7D439ABD">
+            <End Role="Kategoriler" EntitySet="Kategoriler" />
+            <End Role="Pizza" EntitySet="Pizza" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sushi__KategoriI__00200768" Association="Self.FK__Sushi__KategoriI__00200768">
+            <End Role="Kategoriler" EntitySet="Kategoriler" />
+            <End Role="Sushi" EntitySet="Sushi" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tatlı__KategoriI__05D8E0BE" Association="Self.FK__Tatlı__KategoriI__05D8E0BE">
+            <End Role="Kategoriler" EntitySet="Kategoriler" />
+            <End Role="Tatlı" EntitySet="Tatlı" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rating__Kullanıc__693CA210" Association="Self.FK__Rating__Kullanıc__693CA210">
+            <End Role="Kullanıcı" EntitySet="Kullanıcı" />
+            <End Role="Rating" EntitySet="Rating" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SiparişYo__Kulla__6383C8BA" Association="Self.FK__SiparişYo__Kulla__6383C8BA">
+            <End Role="Kullanıcı" EntitySet="Kullanıcı" />
+            <End Role="SiparişYorumları" EntitySet="SiparişYorumları" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Siparişle__Pizza__2180FB33" Association="Self.FK__Siparişle__Pizza__2180FB33">
+            <End Role="Pizza" EntitySet="Pizza" />
+            <End Role="Siparişler" EntitySet="Siparişler" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SiparişDe__Yemek__5BE2A6F2" Association="Self.FK__SiparişDe__Yemek__5BE2A6F2">
+            <End Role="Yemekler" EntitySet="Yemekler" />
+            <End Role="SiparişDetayları" EntitySet="SiparişDetayları" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="yemekdbModelStoreContainer" CdmEntityContainer="yemekdbEntities1">
+          <EntitySetMapping Name="Admin">
+            <EntityTypeMapping TypeName="yemekdbModel.Admin">
+              <MappingFragment StoreEntitySet="Admin">
+                <ScalarProperty Name="AdminID" ColumnName="AdminID" />
+                <ScalarProperty Name="İsim" ColumnName="İsim" />
+                <ScalarProperty Name="E_posta" ColumnName="E_posta" />
+                <ScalarProperty Name="Şifre" ColumnName="Şifre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AltKategori">
+            <EntityTypeMapping TypeName="yemekdbModel.AltKategori">
+              <MappingFragment StoreEntitySet="AltKategori">
+                <ScalarProperty Name="AltKategoriID" ColumnName="AltKategoriID" />
+                <ScalarProperty Name="KategoriID" ColumnName="KategoriID" />
+                <ScalarProperty Name="AltKategoriAdı" ColumnName="AltKategoriAdı" />
+                <ScalarProperty Name="Açıklama" ColumnName="Açıklama" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Balık">
+            <EntityTypeMapping TypeName="yemekdbModel.Balık">
+              <MappingFragment StoreEntitySet="Balık">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Adı" ColumnName="Adı" />
+                <ScalarProperty Name="Açıklama" ColumnName="Açıklama" />
+                <ScalarProperty Name="Fiyat" ColumnName="Fiyat" />
+                <ScalarProperty Name="KategoriID" ColumnName="KategoriID" />
+                <ScalarProperty Name="ResimURL" ColumnName="ResimURL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Firma">
+            <EntityTypeMapping TypeName="yemekdbModel.Firma">
+              <MappingFragment StoreEntitySet="Firma">
+                <ScalarProperty Name="FirmaID" ColumnName="FirmaID" />
+                <ScalarProperty Name="Ad" ColumnName="Ad" />
+                <ScalarProperty Name="Eposta" ColumnName="Eposta" />
+                <ScalarProperty Name="Şifre" ColumnName="Şifre" />
+                <ScalarProperty Name="Mesaj" ColumnName="Mesaj" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Hamburger">
+            <EntityTypeMapping TypeName="yemekdbModel.Hamburger">
+              <MappingFragment StoreEntitySet="Hamburger">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Adı" ColumnName="Adı" />
+                <ScalarProperty Name="Açıklama" ColumnName="Açıklama" />
+                <ScalarProperty Name="Fiyat" ColumnName="Fiyat" />
+                <ScalarProperty Name="KategoriID" ColumnName="KategoriID" />
+                <ScalarProperty Name="ResimURL" ColumnName="ResimURL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="İçecekler">
+            <EntityTypeMapping TypeName="yemekdbModel.İçecekler">
+              <MappingFragment StoreEntitySet="İçecekler">
+                <ScalarProperty Name="İçecekID" ColumnName="İçecekID" />
+                <ScalarProperty Name="İçecekAdı" ColumnName="İçecekAdı" />
+                <ScalarProperty Name="Açıklama" ColumnName="Açıklama" />
+                <ScalarProperty Name="Fiyat" ColumnName="Fiyat" />
+                <ScalarProperty Name="AltKategoriID" ColumnName="AltKategoriID" />
+                <ScalarProperty Name="ResimURL" ColumnName="ResimURL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kategoriler">
+            <EntityTypeMapping TypeName="yemekdbModel.Kategoriler">
+              <MappingFragment StoreEntitySet="Kategoriler">
+                <ScalarProperty Name="KategoriID" ColumnName="KategoriID" />
+                <ScalarProperty Name="KategoriAdı" ColumnName="KategoriAdı" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kullanıcı">
+            <EntityTypeMapping TypeName="yemekdbModel.Kullanıcı">
+              <MappingFragment StoreEntitySet="Kullanıcı">
+                <ScalarProperty Name="KullanıcıID" ColumnName="KullanıcıID" />
+                <ScalarProperty Name="KullanıcıAdı" ColumnName="KullanıcıAdı" />
+                <ScalarProperty Name="Şifre" ColumnName="Şifre" />
+                <ScalarProperty Name="EMail" ColumnName="EMail" />
+                <ScalarProperty Name="Adres" ColumnName="Adres" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pizza">
+            <EntityTypeMapping TypeName="yemekdbModel.Pizza">
+              <MappingFragment StoreEntitySet="Pizza">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Adı" ColumnName="Adı" />
+                <ScalarProperty Name="Açıklama" ColumnName="Açıklama" />
+                <ScalarProperty Name="Fiyat" ColumnName="Fiyat" />
+                <ScalarProperty Name="KategoriID" ColumnName="KategoriID" />
+                <ScalarProperty Name="ResimURL" ColumnName="ResimURL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rating">
+            <EntityTypeMapping TypeName="yemekdbModel.Rating">
+              <MappingFragment StoreEntitySet="Rating">
+                <ScalarProperty Name="RatingID" ColumnName="RatingID" />
+                <ScalarProperty Name="SiparişID" ColumnName="SiparişID" />
+                <ScalarProperty Name="KullanıcıID" ColumnName="KullanıcıID" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="RatingTarihi" ColumnName="RatingTarihi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SiparişDetayları">
+            <EntityTypeMapping TypeName="yemekdbModel.SiparişDetayları">
+              <MappingFragment StoreEntitySet="SiparişDetayları">
+                <ScalarProperty Name="SiparişDetayID" ColumnName="SiparişDetayID" />
+                <ScalarProperty Name="SiparişID" ColumnName="SiparişID" />
+                <ScalarProperty Name="YemekID" ColumnName="YemekID" />
+                <ScalarProperty Name="Miktar" ColumnName="Miktar" />
+                <ScalarProperty Name="Fiyat" ColumnName="Fiyat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Siparişler">
+            <EntityTypeMapping TypeName="yemekdbModel.Siparişler">
+              <MappingFragment StoreEntitySet="Siparişler">
+                <ScalarProperty Name="SiparişID" ColumnName="SiparişID" />
+                <ScalarProperty Name="HamburgerId" ColumnName="HamburgerId" />
+                <ScalarProperty Name="PizzaId" ColumnName="PizzaId" />
+                <ScalarProperty Name="BalıkId" ColumnName="BalıkId" />
+                <ScalarProperty Name="SushiId" ColumnName="SushiId" />
+                <ScalarProperty Name="İçeceklerId" ColumnName="İçeceklerId" />
+                <ScalarProperty Name="TatlıId" ColumnName="TatlıId" />
+                <ScalarProperty Name="Miktar" ColumnName="Miktar" />
+                <ScalarProperty Name="Adı" ColumnName="Adı" />
+                <ScalarProperty Name="Fiyat" ColumnName="Fiyat" />
+                <ScalarProperty Name="ResimURL" ColumnName="ResimURL" />
+                <ScalarProperty Name="Açıklama" ColumnName="Açıklama" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SiparişYorumları">
+            <EntityTypeMapping TypeName="yemekdbModel.SiparişYorumları">
+              <MappingFragment StoreEntitySet="SiparişYorumları">
+                <ScalarProperty Name="YorumID" ColumnName="YorumID" />
+                <ScalarProperty Name="SiparişID" ColumnName="SiparişID" />
+                <ScalarProperty Name="KullanıcıID" ColumnName="KullanıcıID" />
+                <ScalarProperty Name="Açıklama" ColumnName="Açıklama" />
+                <ScalarProperty Name="YorumTarihi" ColumnName="YorumTarihi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sushi">
+            <EntityTypeMapping TypeName="yemekdbModel.Sushi">
+              <MappingFragment StoreEntitySet="Sushi">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Adı" ColumnName="Adı" />
+                <ScalarProperty Name="Açıklama" ColumnName="Açıklama" />
+                <ScalarProperty Name="Fiyat" ColumnName="Fiyat" />
+                <ScalarProperty Name="KategoriID" ColumnName="KategoriID" />
+                <ScalarProperty Name="ResimURL" ColumnName="ResimURL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tatlı">
+            <EntityTypeMapping TypeName="yemekdbModel.Tatlı">
+              <MappingFragment StoreEntitySet="Tatlı">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Adı" ColumnName="Adı" />
+                <ScalarProperty Name="Açıklama" ColumnName="Açıklama" />
+                <ScalarProperty Name="Fiyat" ColumnName="Fiyat" />
+                <ScalarProperty Name="KategoriID" ColumnName="KategoriID" />
+                <ScalarProperty Name="ResimURL" ColumnName="ResimURL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Yemekler">
+            <EntityTypeMapping TypeName="yemekdbModel.Yemekler">
+              <MappingFragment StoreEntitySet="Yemekler">
+                <ScalarProperty Name="YemekID" ColumnName="YemekID" />
+                <ScalarProperty Name="YemekAdı" ColumnName="YemekAdı" />
+                <ScalarProperty Name="Açıklama" ColumnName="Açıklama" />
+                <ScalarProperty Name="Fiyat" ColumnName="Fiyat" />
+                <ScalarProperty Name="AltKategoriID" ColumnName="AltKategoriID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

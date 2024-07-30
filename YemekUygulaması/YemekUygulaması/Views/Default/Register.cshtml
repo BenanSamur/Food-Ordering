@@ -1,0 +1,80 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kayıt Ol</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background: rgb(228, 15, 120);
+            background: linear-gradient(90deg, rgba(228, 15, 120, 1) 0%, rgba(253, 29, 29, 1) 50%, rgba(252, 176, 69, 1) 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background: #f1f1f1;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+        }
+
+        .form-control {
+            border-radius: 5px;
+        }
+
+        .btn-primary {
+            background: rgb(228, 15, 120);
+            background: linear-gradient(90deg, rgba(228, 15, 120, 1) 0%, rgba(253, 29, 29, 1) 50%, rgba(252, 176, 69, 1) 100%);
+            border: none;
+        }
+
+            .btn-primary:hover {
+                background-position: right;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Kayıt Ol</h2>
+        <form method="post" action="/Default/Register">
+            <div class="form-group">
+                <label for="KullanıcıAdı">Kullanıcı Adı</label>
+                <input type="text" name="KullanıcıAdı" id="KullanıcıAdı" class="form-control" required />
+            </div>
+            <div class="form-group">
+                <label for="EMail">E-Mail</label>
+                <input type="email" name="EMail" id="EMail" class="form-control" required />
+            </div>
+            <div class="form-group">
+                <label for="Şifre">Şifre</label>
+                <input type="password" name="Şifre" id="Şifre" class="form-control" required />
+            </div>
+            <div class="form-group">
+                <label for="UserType">Kayıt Türü</label>
+                <select name="UserType" id="UserType" class="form-control" required>
+                    <option value="Kullanıcı">Kullanıcı</option>
+                    <option value="Admin">Admin</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Kayıt Ol</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

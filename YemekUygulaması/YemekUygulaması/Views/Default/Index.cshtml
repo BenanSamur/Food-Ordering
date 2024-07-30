@@ -1,0 +1,36 @@
+﻿@{
+    Layout = "~/Views/Shared/_TestLayout.cshtml";
+    ViewBag.Title = "Ana Sayfa";
+}
+
+<section id="section-1">
+    <a href="@Url.Action("Menü", "Default")" class="btn-s1">
+        Sipariş Ver
+    </a>
+</section>
+
+<style>
+    .container {
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+
+    .btn-s1 {
+        background-color: #e83e8c; 
+        color: white;
+        border: none;
+        padding: 15px 30px; 
+        font-size: 18px; 
+        border-radius: 8px; 
+        cursor: pointer;
+        text-decoration: none; 
+        display: inline-block;
+        text-align: center;
+    }
+
+        .btn-s1:hover {
+            background-color: #c8236c;
+        }
+</style>

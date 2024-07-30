@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Cart</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function removeFromCart(itemId) {
+            $.ajax({
+                url: '@Url.Action("RemoveFromCart", "Sepet")',
+                type: 'POST',
+                data: { remove: itemId },
+                success: function (response) {
+                    if (response.success) {
+                        location.reload(); // Sayfayı yeniden yükleyerek sepeti güncelle
+                    } else {
+                        alert('Failed to remove item from cart.');
+                    }
+                },
+                error: function () {
+                    alert('An error occurred while removing the item from cart.');
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <h2>Your Cart</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><img src="@item.ResimURL" alt="@item.Adı" style="width:100px;height:100px;" /></td>
+                    <td>@item.Adı</td>
+                    <td>@item.Fiyat.ToString("C2")</td>
+                    <td>@item.Açıklama</td>
+                    <td>
+                        <button onclick="removeFromCart(@item.SiparişID)">Remove</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <h3>Total Price: @ViewBag.TotalPrice.ToString("C2")</h3>
+</body>
+</html>

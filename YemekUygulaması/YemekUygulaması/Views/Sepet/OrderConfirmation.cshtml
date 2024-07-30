@@ -1,0 +1,72 @@
+﻿@model YemekUygulaması.Models.Siparişler
+@{
+    ViewBag.Title = "OrderConfirmation";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sipariş Onayı</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fbeefc;
+            color: #333;
+            padding: 20px;
+        }
+
+        .confirmation-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 2px solid #f48fb1;
+        }
+
+            .confirmation-container h1 {
+                font-size: 24px;
+                margin-bottom: 20px;
+                color: #ec407a;
+            }
+
+            .confirmation-container p {
+                font-size: 16px;
+                margin-bottom: 10px;
+            }
+
+            .confirmation-container a {
+                display: inline-block;
+                margin-top: 20px;
+                font-size: 16px;
+                color: #ec407a;
+                text-decoration: none;
+                font-weight: bold;
+                border: 1px solid #ec407a;
+                padding: 10px 20px;
+                border-radius: 5px;
+                transition: background-color 0.3s, color 0.3s;
+            }
+
+                .confirmation-container a:hover {
+                    background-color: #ec407a;
+                    color: #ffffff;
+                }
+    </style>
+</head>
+<body>
+    <div class="confirmation-container">
+        <h1>Siparişiniz Alındı!</h1>
+        <p>Teşekkür ederiz, siparişiniz başarıyla alınmıştır.</p>
+        <p><strong>Sipariş Detayları:</strong></p>
+        <p>Adı: @Model.Adı</p>
+        <p>Fiyat: @Model.Fiyat.ToString()</p>
+        <p>Açıklama: @Model.Açıklama</p>
+        <p><a href="@Url.Action("Index", "Default")">Ana Sayfaya Dön</a></p>
+    </div>
+</body>
+</html>

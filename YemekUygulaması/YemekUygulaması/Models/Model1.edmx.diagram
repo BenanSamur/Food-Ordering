@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="baba19c0e0c44e15bb5e1174cfacb8f2" Name="Diagram1">
+        <EntityTypeShape EntityType="yemekdbModel.Admin" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="yemekdbModel.AltKategori" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="yemekdbModel.Balık" Width="1.5" PointX="3" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="yemekdbModel.Firma" Width="1.5" PointX="9.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="yemekdbModel.Hamburger" Width="1.5" PointX="3" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="yemekdbModel.İçecekler" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="yemekdbModel.Kategoriler" Width="1.5" PointX="0.75" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="yemekdbModel.Kullanıcı" Width="1.5" PointX="9.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="yemekdbModel.Pizza" Width="1.5" PointX="3" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="yemekdbModel.Rating" Width="1.5" PointX="12" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="yemekdbModel.SiparişDetayları" Width="1.5" PointX="7.5" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="yemekdbModel.Siparişler" Width="1.5" PointX="5.25" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="yemekdbModel.SiparişYorumları" Width="1.5" PointX="12" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="yemekdbModel.Sushi" Width="1.5" PointX="3" PointY="19.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="yemekdbModel.Tatlı" Width="1.5" PointX="3" PointY="22.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="yemekdbModel.Yemekler" Width="1.5" PointX="5.25" PointY="5.75" IsExpanded="true" />
+        <AssociationConnector Association="yemekdbModel.FK__AltKatego__Kateg__4D94879B" ManuallyRouted="false" />
+        <AssociationConnector Association="yemekdbModel.FK__İçecekler__AltKa__534D60F1" ManuallyRouted="false" />
+        <AssociationConnector Association="yemekdbModel.FK__Yemekler__AltKat__5070F446" ManuallyRouted="false" />
+        <AssociationConnector Association="yemekdbModel.FK__Balık__KategoriI__02FC7413" ManuallyRouted="false" />
+        <AssociationConnector Association="yemekdbModel.FK__Siparişle__Balık__22751F6C" ManuallyRouted="false" />
+        <AssociationConnector Association="yemekdbModel.FK__Siparişle__İçece__245D67DE" ManuallyRouted="false" />
+        <AssociationConnector Association="yemekdbModel.FK__Siparişle__Sushi__236943A5" ManuallyRouted="false" />
+        <AssociationConnector Association="yemekdbModel.FK__Siparişle__Tatlı__25518C17" ManuallyRouted="false" />
+        <AssociationConnector Association="yemekdbModel.FK__Hamburger__Kateg__7A672E12" ManuallyRouted="false" />
+        <AssociationConnector Association="yemekdbModel.FK__Siparişle__Hambu__208CD6FA" ManuallyRouted="false" />
+        <AssociationConnector Association="yemekdbModel.FK__Pizza__KategoriI__7D439ABD" ManuallyRouted="false" />
+        <AssociationConnector Association="yemekdbModel.FK__Sushi__KategoriI__00200768" ManuallyRouted="false" />
+        <AssociationConnector Association="yemekdbModel.FK__Tatlı__KategoriI__05D8E0BE" ManuallyRouted="false" />
+        <AssociationConnector Association="yemekdbModel.FK__Rating__Kullanıc__693CA210" ManuallyRouted="false" />
+        <AssociationConnector Association="yemekdbModel.FK__SiparişYo__Kulla__6383C8BA" ManuallyRouted="false" />
+        <AssociationConnector Association="yemekdbModel.FK__Siparişle__Pizza__2180FB33" ManuallyRouted="false" />
+        <AssociationConnector Association="yemekdbModel.FK__SiparişDe__Yemek__5BE2A6F2" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
