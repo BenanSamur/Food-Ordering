@@ -217,6 +217,7 @@
                         <div class="col-md-7 col-sm-12 p-0 box">
                             <div class="card rounded-0 border-0 card2" id="paypage">
                                 <form method="post" action="/Sepet/CompleteOrder">
+                                    @Html.AntiForgeryToken()
                                     <div class="form-card">
                                         <!-- Payment method and form fields -->
                                         <h2 id="heading2" class="text-danger">Ödeme Yöntemi</h2>

@@ -107,6 +107,7 @@
                     <p>@icecek.Açıklama</p>
                     <p><strong>Fiyat:</strong> @icecek.Fiyat.ToString()</p>
                     <form action="@Url.Action("AddToCart", "Sepet")" method="post" style="display:inline;">
+                        @Html.AntiForgeryToken()
                         <input type="hidden" name="itemId" value="@icecek.İçecekID" />
                         <input type="hidden" name="itemType" value="İçecekler" />
                         <input type="submit" class="add-button" value="Ekle" />

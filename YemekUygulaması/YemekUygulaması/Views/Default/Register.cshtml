@@ -51,6 +51,11 @@
     <div class="container">
         <h2>Kayıt Ol</h2>
         <form method="post" action="/Default/Register">
+            @Html.AntiForgeryToken()
+            @if (ViewBag.hata != null)
+            {
+                <div class="alert alert-danger">@ViewBag.hata</div>
+            }
             <div class="form-group">
                 <label for="KullanıcıAdı">Kullanıcı Adı</label>
                 <input type="text" name="KullanıcıAdı" id="KullanıcıAdı" class="form-control" required />
@@ -62,13 +67,6 @@
             <div class="form-group">
                 <label for="Şifre">Şifre</label>
                 <input type="password" name="Şifre" id="Şifre" class="form-control" required />
-            </div>
-            <div class="form-group">
-                <label for="UserType">Kayıt Türü</label>
-                <select name="UserType" id="UserType" class="form-control" required>
-                    <option value="Kullanıcı">Kullanıcı</option>
-                    <option value="Admin">Admin</option>
-                </select>
             </div>
             <button type="submit" class="btn btn-primary btn-block">Kayıt Ol</button>
         </form>

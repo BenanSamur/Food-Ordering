@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
+using YemekUygulaması.Helpers;
 using YemekUygulaması.Models;
 
 namespace YemekUygulaması.Controllers
@@ -29,26 +30,29 @@ namespace YemekUygulaması.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Giriş(Kullanıcı p)
         {
-            var bilgiler = db.Kullanıcı.FirstOrDefault(x => x.EMail == p.EMail && x.Şifre == p.Şifre);
-            if (bilgiler != null)
+            var bilgiler = string.IsNullOrWhiteSpace(p.EMail)
+                ? null
+                : db.Kullanıcı.FirstOrDefault(x => x.EMail == p.EMail);
+
+            bool needsUpgrade;
+            if (bilgiler != null && PasswordHasher.Verify(p.Şifre, bilgiler.Şifre, out needsUpgrade))
             {
+                // Eski düz metin şifreyi ilk başarılı girişte hash'e çevir
+                if (needsUpgrade)
+                {
+                    bilgiler.Şifre = PasswordHasher.Hash(p.Şifre);
+                    db.SaveChanges();
+                }
+
                 FormsAuthentication.SetAuthCookie(bilgiler.EMail, false);
                 Session["Mail"] = bilgiler.EMail;
                 Session["Ad"] = bilgiler.KullanıcıAdı;
+                Session.Remove("Role"); // Normal kullanıcı admin yetkisi taşımaz
 
-                // Rol kontrolü
-                if (bilgiler.RolAdı == "Admin")
-                {
-                    return RedirectToAction("AdminPage", "Default");
-                }
-
-                // Kullanıcı rolü ise anasayfaya dön
                 return RedirectToAction("Index", "Default");
             }
-            else
-            {
-                ViewBag.hata = "Kullanıcı Adı ve şifre hatalı";
-            }
+
+            ViewBag.hata = "E-posta veya şifre hatalı";
             return View();
         }
 
@@ -59,39 +63,65 @@ namespace YemekUygulaması.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register(Kullanıcı model, string userType)
+        [ValidateAntiForgeryToken]
+        public ActionResult Register(Kullanıcı model)
         {
-            if (ModelState.IsValid)
+            // Bu form yalnızca normal kullanıcı hesabı oluşturur.
+            // Admin hesapları internetten kayıt olunarak değil, veritabanından eklenir.
+            if (string.IsNullOrWhiteSpace(model.KullanıcıAdı) ||
+                string.IsNullOrWhiteSpace(model.EMail) ||
+                string.IsNullOrEmpty(model.Şifre))
             {
-                if (userType == "Admin")
-                {
-                    var admin = new Admin
-                    {
-                        E_posta = model.EMail,
-                        Şifre = model.Şifre,
-                        İsim = model.KullanıcıAdı
-                    };
-                    db.Admin.Add(admin);
-                    db.SaveChanges();
-
-                    return RedirectToAction("AdminLogin");
-                }
-                else
-                {
-                    var kullanıcı = new Kullanıcı
-                    {
-                        EMail = model.EMail,
-                        Şifre = model.Şifre,
-                        KullanıcıAdı = model.KullanıcıAdı
-                    };
-                    db.Kullanıcı.Add(kullanıcı);
-                    db.SaveChanges();
-
-                    return RedirectToAction("Giriş");
-                }
+                ViewBag.hata = "Tüm alanları doldurun.";
+                return View(model);
             }
-            ViewBag.hata = "Kayıt sırasında bir hata oluştu.";
-            return View(model);
+
+            if (!IsValidEmail(model.EMail))
+            {
+                ViewBag.hata = "Geçerli bir e-posta adresi girin.";
+                return View(model);
+            }
+
+            if (model.Şifre.Length < 8)
+            {
+                ViewBag.hata = "Şifre en az 8 karakter olmalıdır.";
+                return View(model);
+            }
+
+            if (db.Kullanıcı.Any(x => x.EMail == model.EMail))
+            {
+                ViewBag.hata = "Bu e-posta adresiyle zaten bir hesap var.";
+                return View(model);
+            }
+
+            var kullanıcı = new Kullanıcı
+            {
+                EMail = model.EMail.Trim(),
+                Şifre = PasswordHasher.Hash(model.Şifre),
+                KullanıcıAdı = model.KullanıcıAdı.Trim()
+            };
+            db.Kullanıcı.Add(kullanıcı);
+            db.SaveChanges();
+
+            return RedirectToAction("Giriş");
+        }
+
+        private static bool IsValidEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email.Trim());
+                return addr.Address == email.Trim();
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
+        }
+
+        private bool IsAdmin()
+        {
+            return (Session["Role"] as string) == "Admin";
         }
 
         public ActionResult Sepet()
@@ -125,13 +155,16 @@ namespace YemekUygulaması.Controllers
 
         public ActionResult Admin()
         {
+            if (!IsAdmin()) return RedirectToAction("AdminLogin");
             return View();
         }
 
         public ActionResult AdminPage()
         {
+            if (!IsAdmin()) return RedirectToAction("AdminLogin");
             return View();
         }
+
         public ActionResult AdminLogin()
         {
             return View();
@@ -141,19 +174,27 @@ namespace YemekUygulaması.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AdminLogin(Admin admin)
         {
-            var bilgiler = db.Admin.FirstOrDefault(x => x.E_posta == admin.E_posta && x.Şifre == admin.Şifre);
-            if (bilgiler != null)
+            var bilgiler = string.IsNullOrWhiteSpace(admin.E_posta)
+                ? null
+                : db.Admin.FirstOrDefault(x => x.E_posta == admin.E_posta);
+
+            bool needsUpgrade;
+            if (bilgiler != null && PasswordHasher.Verify(admin.Şifre, bilgiler.Şifre, out needsUpgrade))
             {
+                if (needsUpgrade)
+                {
+                    bilgiler.Şifre = PasswordHasher.Hash(admin.Şifre);
+                    db.SaveChanges();
+                }
+
                 FormsAuthentication.SetAuthCookie(bilgiler.E_posta, false);
                 Session["Mail"] = bilgiler.E_posta;
                 Session["Ad"] = bilgiler.İsim;
                 Session["Role"] = "Admin";
                 return RedirectToAction("AdminPage", "Default");
             }
-            else
-            {
-                ViewBag.hata = "Kullanıcı Adı ve şifre hatalı";
-            }
+
+            ViewBag.hata = "E-posta veya şifre hatalı";
             return View();
         }
     }

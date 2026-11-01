@@ -20,6 +20,7 @@ namespace YemekUygulaması.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult AddToCart(int itemId, string itemType, int quantity = 1)
         {
             Siparişler item = GetItemById(itemId, itemType);
@@ -179,6 +180,7 @@ namespace YemekUygulaması.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult RemoveFromCart(int remove)
         {
             try
@@ -226,6 +228,7 @@ namespace YemekUygulaması.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult CompleteOrder(string paymentMethod, string holdername, string cardno, string cvcpwd, string exp)
         {
             try

@@ -86,7 +86,7 @@ warning 6013: The table/view 'yemekdb.dbo.İletişim' does not have a primary ke
           </Key>
           <Property Name="KullanıcıID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="KullanıcıAdı" Type="varchar" MaxLength="100" />
-          <Property Name="Şifre" Type="varchar" MaxLength="50" />
+          <Property Name="Şifre" Type="varchar" MaxLength="200" />
           <Property Name="EMail" Type="varchar" MaxLength="200" />
           <Property Name="Adres" Type="varchar" MaxLength="200" />
         </EntityType>
@@ -566,7 +566,7 @@ warning 6013: The table/view 'yemekdb.dbo.İletişim' does not have a primary ke
           </Key>
           <Property Name="KullanıcıID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="KullanıcıAdı" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Şifre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Şifre" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="EMail" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="Adres" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Rating" Relationship="Self.FK__Rating__Kullanıc__693CA210" FromRole="Kullanıcı" ToRole="Rating" />

@@ -108,6 +108,7 @@
                     <p><strong>Fiyat:</strong> @hamburger.Fiyat.ToString()</p>
                     @using (Html.BeginForm("AddToCart", "Sepet", FormMethod.Post))
                     {
+                        @Html.AntiForgeryToken()
                         @Html.Hidden("itemId", hamburger.ID)
                         @Html.Hidden("itemType", "Hamburger")
                         <button type="submit" class="add-button">Ekle</button>

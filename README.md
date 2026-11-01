@@ -1,30 +1,30 @@
 # 🍔 Food-Ordering
 
-ASP.NET MVC ve C# kullanılarak geliştirilmiş bir **yemek sipariş sistemi**. Kullanıcılar restoranları inceleyebilir, menüden ürün seçip sepetlerine ekleyebilir ve sipariş verebilir.
+ASP.NET MVC ve C# ile geliştirilmiş bir **yemek sipariş web uygulaması**. Kullanıcılar menüdeki ürünleri kategorilere göre inceleyebilir, sepetlerine ekleyebilir ve sipariş verebilir.
 
 ## ✨ Özellikler
 
-- Kullanıcı kaydı ve girişi
-- Restoranları ve menüleri listeleme
-- Sepete ürün ekleme / çıkarma
-- Sipariş oluşturma ve sipariş takibi
-- Yönetici paneli (restoran, ürün ve sipariş yönetimi)
-
-> Not: Bu liste projenin genel amacına göre hazırlanmıştır. Projenizde olmayan maddeleri silin, eksik olanları ekleyin.
+- Kullanıcı kaydı ve girişi (şifreler PBKDF2 ile hash'lenerek saklanır)
+- Ayrı yönetici (admin) girişi ve korumalı yönetici sayfası
+- 6 ürün kategorisi: Hamburger, Pizza, Sushi, Balık, Tatlı, İçecekler
+- Sepete ürün ekleme, sepetten çıkarma, toplam tutar hesaplama
+- Ödeme sayfası ve sipariş onay ekranı
+- İletişim formu
+- Yönetici paneli arayüzü (menü, iletişim ve sayfa yönetimi taslağı)
 
 ## 🛠️ Kullanılan Teknolojiler
 
-- C#
-- ASP.NET MVC
-- Entity Framework
+- C#, ASP.NET MVC 5 (.NET Framework 4.7.2)
+- Entity Framework 6 (Database First, `Model1.edmx`)
 - SQL Server
-- HTML, CSS, JavaScript, Bootstrap
+- Razor, HTML, CSS, JavaScript, Bootstrap, jQuery
 
 ## 📋 Gereksinimler
 
-- Visual Studio 2019 veya üzeri (ASP.NET ve web geliştirme iş yükü yüklü)
-- .NET Framework 4.8 (kullandığınız sürüme göre güncelleyin)
-- SQL Server veya SQL Server LocalDB
+- Windows ve **Visual Studio 2019 veya üzeri** ("ASP.NET ve web geliştirme" iş yükü yüklü)
+- .NET Framework 4.7.2 Developer Pack
+- SQL Server Express, LocalDB veya Developer sürümü
+- SQL Server Management Studio (SSMS) – veritabanını kurmak için
 
 ## 🚀 Kurulum
 
@@ -32,51 +32,59 @@ ASP.NET MVC ve C# kullanılarak geliştirilmiş bir **yemek sipariş sistemi**. 
    ```bash
    git clone https://github.com/BenanSamur/Food-Ordering.git
    ```
-2. `YemekUygulamasi` klasöründeki `.sln` dosyasını Visual Studio ile açın.
-3. `Web.config` dosyasındaki bağlantı dizesini (`connectionString`) kendi SQL Server bilgilerinize göre düzenleyin:
-   ```xml
-   <connectionStrings>
-     <add name="DefaultConnection"
-          connectionString="Data Source=.;Initial Catalog=YemekDb;Integrated Security=True"
-          providerName="System.Data.SqlClient" />
-   </connectionStrings>
+2. **Veritabanını oluşturun:** SSMS ile sunucunuza bağlanıp [`database/database.sql`](database/database.sql) dosyasını çalıştırın. Bu script `yemekdb` veritabanını, tabloları ve örnek menü verilerini oluşturur.
+3. `YemekUygulaması/YemekUygulaması.sln` dosyasını Visual Studio ile açın.
+4. `YemekUygulaması/Web.config` içindeki `yemekdbEntities1` bağlantı dizesinde `data source=` değerini kendi SQL Server adınızla değiştirin:
    ```
-4. NuGet paketlerini geri yükleyin (Visual Studio otomatik yapar, yapmazsa: sağ tık → *Restore NuGet Packages*).
-5. Veritabanını oluşturun (Package Manager Console):
+   data source=BENAN            →  .\SQLEXPRESS   veya   (localdb)\MSSQLLocalDB
    ```
-   Update-Database
-   ```
-6. Projeyi çalıştırın: `F5` veya `Ctrl + F5`.
+5. NuGet paketlerini geri yükleyin (Visual Studio otomatik yapar; yapmazsa çözüme sağ tık → *Restore NuGet Packages*).
+6. Projeyi çalıştırın: `F5`.
 
-## 📸 Ekran Görüntüleri
+> Veritabanını daha önce eski sürümle kurduysanız, silmeden güncellemek için [`database/migration-sifre-sutunu.sql`](database/migration-sifre-sutunu.sql) dosyasını çalıştırmanız yeterlidir. Mevcut kullanıcıların şifreleri, ilk başarılı girişlerinde otomatik olarak hash'e dönüştürülür.
 
-Ekran görüntülerini projede bir `screenshots` klasörüne koyup buraya ekleyebilirsiniz:
+## 🔑 Demo yönetici hesabı
 
-```markdown
-![Ana Sayfa](screenshots/anasayfa.png)
-![Sepet](screenshots/sepet.png)
-```
+`database.sql` ile bir demo admin hesabı oluşur:
+
+| Alan | Değer |
+|------|-------|
+| Giriş adresi | `/Default/AdminLogin` |
+| E-posta | `admin@example.com` |
+| Şifre | `Admin123!` |
+
+> ⚠️ Bu hesap **yalnızca geliştirme ve deneme içindir**. Şifre herkese açık bir repoda yazdığı için güvenli değildir; siteyi gerçek bir ortama yayınlamadan önce bu hesabı silin veya şifresini değiştirin.
+>
+> Yeni admin hesapları kayıt formundan açılamaz; `Admin` tablosuna veritabanından eklenir.
 
 ## 📁 Proje Yapısı
 
 ```
 Food-Ordering
-└── YemekUygulamasi
-    ├── Controllers   # İstekleri karşılayan denetleyiciler
-    ├── Models        # Veri modelleri
-    ├── Views         # Arayüz sayfaları (Razor)
-    └── Content       # CSS, görseller, script dosyaları
+├── database/                  # Veritabanı kurulum ve güncelleme script'leri
+│   ├── database.sql
+│   └── migration-sifre-sutunu.sql
+└── YemekUygulaması/
+    ├── YemekUygulaması.sln
+    └── YemekUygulaması/
+        ├── Controllers/       # Default, Urun, Sepet, Home denetleyicileri
+        ├── Helpers/           # PasswordHasher (şifre hash'leme)
+        ├── Models/            # EF modelleri (Model1.edmx)
+        ├── Views/             # Razor sayfaları
+        ├── Content/           # CSS ve ürün görselleri
+        ├── Scripts/           # JavaScript dosyaları
+        └── Web.config
 ```
 
-## 🤝 Katkıda Bulunma
+## ⚠️ Bilinen Sınırlamalar
 
-1. Repoyu fork'layın
-2. Yeni bir dal oluşturun (`git checkout -b yeni-ozellik`)
-3. Değişikliklerinizi commit edin (`git commit -m "Yeni özellik eklendi"`)
-4. Dalı gönderin (`git push origin yeni-ozellik`)
-5. Pull Request açın
-
+- **Ödeme sayfası gösterim amaçlıdır.** Gerçek bir ödeme sağlayıcısına bağlı değildir ve kart bilgileri saklanmaz. Gerçek kart bilgisi girmeyin.
+- Yönetici paneli şu an bir arayüz taslağıdır; menü ve içerik yönetimi işlevleri henüz tamamlanmamıştır.
+- Bağlantı dizesinde SQL Server adı yerel bilgisayara göre ayarlanmıştır; kendi ortamınıza göre değiştirmeniz gerekir.
 
 ## 👤 Geliştirici
 
 **Benan Samur** — [GitHub](https://github.com/BenanSamur)
+
+<!-- Ekran görüntüleri eklemek için: projeyi çalıştırıp görüntü alın, repoya `screenshots/` klasörü açın ve buraya
+     ![Ana Sayfa](screenshots/anasayfa.png) biçiminde ekleyin. -->
