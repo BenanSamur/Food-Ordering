@@ -76,9 +76,6 @@ Food-Ordering
 4. Dalı gönderin (`git push origin yeni-ozellik`)
 5. Pull Request açın
 
-## 📄 Lisans
-
-Bu proje [MIT Lisansı](LICENSE) ile lisanslanmıştır.
 
 ## 👤 Geliştirici
 
